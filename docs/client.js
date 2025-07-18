@@ -3,7 +3,7 @@ window.TrelloPowerUp.initialize({
     return [{
       text: 'Download List Images',
       callback: function(t) {
-        return t.signUrl('./public/index.html')  // Sign the iframe URL
+        return t.signUrl('https://sneakyquill.github.io/trello-powerup-dowloader/docs/index.html')  // Sign the iframe URL
           .then(function(signedUrl) {
             return t.popup({
               title: 'Download List Images',
