@@ -1,75 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Download List Attachments</title>
+  <meta charset="UTF-8">
+  <title>Download List Images</title>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script src="jszip.min.js"></script>
-  <script src="FileSaver.min.js"></script>
   <style>
-    body { font-family: sans-serif; padding: 10px; }
-    select, button { width: 100%; padding: 8px; margin-top: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #0079bf;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
-  <h3>Select a list to download images</h3>
-  <select id="listPicker"></select>
-  <button onclick="startDownload()">Download Images from List</button>
-  <p id="status"></p>
+  <h1>Download Images in This List</h1>
+  <p>This will collect all image attachments from every card in this list.</p>
+  <button id="download-btn">Download</button>
 
   <script>
     const t = TrelloPowerUp.iframe();
 
-    async function populateLists() {
-      const board = await t.board('lists');
-      const listPicker = document.getElementById('listPicker');
-      board.lists.forEach(list => {
-        const option = document.createElement('option');
-        option.value = list.id;
-        option.textContent = list.name;
-        listPicker.appendChild(option);
-      });
-    }
+    document.getElementById('download-btn').addEventListener('click', async () => {
+      const list = await t.list('id', 'name');
+      const board = await t.board('id');
+      const listId = list.id;
 
-    async function startDownload() {
-      const selectedListId = document.getElementById('listPicker').value;
-      document.getElementById('status').innerText = 'Fetching cards...';
+      t.closePopup(); // Close the popup while download begins externally
 
-      const cards = await t.list('cards').then(data => data.cards);
-      const matchingCards = cards.filter(card => card.idList === selectedListId);
+      // Optionally send message to a backend or open a download page
+      // window.open(`https://your-backend.com/download-list?id=${listId}`);
 
-      if (matchingCards.length === 0) {
-        document.getElementById('status').innerText = 'No cards found in this list.';
-        return;
-      }
-
-      for (const card of matchingCards) {
-        document.getElementById('status').innerText = `Processing "${card.name}"...`;
-
-        const attachments = await t.card('attachments', { card: card.id });
-        const zip = new JSZip();
-        let hasImage = false;
-
-        for (const att of attachments.attachments) {
-          if (att.url.match(/\.(jpeg|jpg|png|gif|webp)$/i)) {
-            const response = await fetch(att.url);
-            const blob = await response.blob();
-            const ext = att.url.split('.').pop().split(/\#|\?/)[0];
-            const filename = att.name || `image_${Math.floor(Math.random() * 10000)}.${ext}`;
-            zip.file(filename, blob);
-            hasImage = true;
-          }
-        }
-
-        if (hasImage) {
-          const content = await zip.generateAsync({ type: "blob" });
-          saveAs(content, `${card.name.replace(/[\\/:*?"<>|]/g, '_')}-images.zip`);
-        }
-      }
-
-      document.getElementById('status').innerText = 'All downloads complete.';
-    }
-
-    populateLists();
+      alert(`Download triggered for list: ${list.name} (ID: ${list.id})`);
+    });
   </script>
 </body>
 </html>
