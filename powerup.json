@@ -1,4 +1,4 @@
-{
+x{
   "name": "List Image Downloader",
   "description": "Download all image attachments from cards in a Trello list as separate zip files",
   "author": "Quillin",
@@ -15,7 +15,7 @@
     ]
   },
   "connectors": {},
-  "iframeConnectorUrl": "https://sneakyquill.github.io/trello-powerup-dowloader/",
+  "iframeConnectorUrl": "https://sneakyquill.github.io/trello-powerup-dowloader/index.html",
   "iframeConnector": true,
   "permissions": ["read"]
 }
