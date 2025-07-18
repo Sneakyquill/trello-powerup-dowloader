@@ -33,19 +33,31 @@
   <button id="download-btn">Download</button>
 
   <script>
-    const t = TrelloPowerUp.iframe();
+    const t = window.TrelloPowerUp.iframe();
 
     document.getElementById('download-btn').addEventListener('click', async () => {
-      const list = await t.list('id', 'name');
-      const board = await t.board('id');
-      const listId = list.id;
+      try {
+        const list = await t.list('id', 'name');
+        const board = await t.board('id', 'name');
 
-      t.closePopup(); // Close the popup while download begins externally
+        const listId = list.id;
+        const listName = list.name;
+        const boardId = board.id;
 
-      // Optionally send message to a backend or open a download page
-      // window.open(`https://your-backend.com/download-list?id=${listId}`);
+        // Close the popup
+        t.closePopup();
 
-      alert(`Download triggered for list: ${list.name} (ID: ${list.id})`);
+        // 👇 Optional: redirect to backend to trigger zip download
+        // Replace this URL with your Render/Backend endpoint
+      //  window.open(`https://your-backend.com/download?listId=${listId}&listName=${encodeURIComponent(listName)}&boardId=${boardId}`, '_blank');
+
+        // 👇 Or just confirm to user for now
+         alert(`Download triggered for list: ${listName} (ID: ${listId})`);
+
+      } catch (err) {
+        console.error('Error during list image download:', err);
+        alert('Something went wrong. Make sure you opened this from a Trello list button.');
+      }
     });
   </script>
 </body>
