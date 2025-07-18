@@ -7,12 +7,12 @@
     "48": "https://cdn-icons-png.flaticon.com/512/3649/3649467.png"
   },
   "capabilities": {
-    "board-buttons": [
-      {
-        "text": "Download List Images",
-        "callback": "showListPicker"
-      }
-    ]
+"board-buttons": [
+  {
+    "text": "Download List Images",
+    "callback": "chooseListAndDownload"
+  }
+]
   },
   "connectors": {},
   "iframeConnectorUrl": "https://sneakyquill.github.io/trello-powerup-dowloader/index.html",
