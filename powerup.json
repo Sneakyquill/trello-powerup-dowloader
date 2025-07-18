@@ -1,4 +1,4 @@
-x{
+{
   "name": "List Image Downloader",
   "description": "Download all image attachments from cards in a Trello list as separate zip files",
   "author": "Quillin",
