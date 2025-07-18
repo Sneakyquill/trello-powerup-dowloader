@@ -15,7 +15,7 @@
     ]
   },
   "connectors": {},
-  "iframeConnectorUrl": "https://Sneakyquill.github.io/trello-powerup-image-downloader/public/index.html",
+  "iframeConnectorUrl": "https://sneakyquill.github.io/trello-powerup-downloader/",
   "iframeConnector": true,
   "permissions": ["read"]
 }
