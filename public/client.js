@@ -1,20 +1,21 @@
 window.TrelloPowerUp.initialize({
   'board-buttons': function (t, options) {
     return [{
-      icon: 'https://webstockreview.net/images/download-icon-png-5.png',
       text: 'Download List Attachments',
-      callback: function (t) {
+      callback: window.showListPicker
+    }];
+  }
+});
+window.showListPicker = function (t) {
         return t.popup({
-          title: 'Choose List',
+          title: 'Select List',
           items: () =>
-            lists.map(list => ({
+            t.lists('id','name').then(lists =>
+              lists.map(list => ({
               text: list.name,
               callback: () =>
 downloadImagesFromList(t, list.id)
             }))
             )
         });
-      }
-    }];
-  }
-});
+};
