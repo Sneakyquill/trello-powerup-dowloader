@@ -1,0 +1,21 @@
+{
+  "name": "List Image Downloader",
+  "description": "Download all image attachments from cards in a Trello list as separate zip files",
+  "author": "Quillin",
+  "version": "1.0.0",
+  "icons": {
+    "48": "https://cdn-icons-png.flaticon.com/512/3649/3649467.png"
+  },
+  "capabilities": {
+    "board-buttons": [
+      {
+        "text": "Download List Images",
+        "callback": "showListPicker"
+      }
+    ]
+  },
+  "connectors": {},
+  "iframeConnectorUrl": "https://Sneakyquill.github.io/trello-powerup-image-downloader/public/index.html",
+  "iframeConnector": true,
+  "permissions": ["read"]
+}
